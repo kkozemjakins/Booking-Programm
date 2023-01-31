@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Simple PHP Page</title>
+	<title>booking</title>
+	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+
+<button onclick="location.href = 'user_data.php';">User Data</button>
+<button onclick="location.href = 'login.php';">Login</button>
 
 <!-- Display data from the users table -->
 <table>
@@ -26,7 +30,7 @@
         $query->execute();
         $results = $query->fetchAll();
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+        echo 'Error: ' . $e->getMessage();
     }
 
     foreach ($results as $row) {
@@ -38,17 +42,22 @@
 </table>
 
 <!-- Form to insert new data into the userstable -->
+	<p>
+	<div class="tip left">
+		<a>Insert data</a>
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+		<label for="DemoID">DemoID:</label>
+		<input type="text" id="DemoID" name="DemoID" required><br>
+		<label for="test">test:</label>
+		<input type="text" id="test" name="test" required><br>
+		<input type="submit" name="Submit" value="Insert">
+		</form>
+	</div>
+	</p>
 
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-	  <label for="DemoID">DemoID:</label>
-	  <input type="text" id="DemoID" name="DemoID" required><br>
-	  <label for="test">test:</label>
-	  <input type="text" id="test" name="test" required><br>
-	  <input type="submit" name="submit" value="Insert">
-	</form>
 	<?php
 // Insert new data into the users table
-if (isset($_POST['submit'])) {
+if (isset($_POST['Submit'])) {
     $DemoID = $_POST['DemoID'];
     $test = $_POST['test'];
 	
@@ -75,22 +84,31 @@ if (isset($_POST['submit'])) {
 	?>
 	
 	<!-- Form to update an existing record in the demo1 table -->
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-		<label for="update_DemoID">DemoID:</label>
-		<input type="text" id="update_DemoID" name="update_DemoID" required><br>
-		<label for="update_test">test:</label>
-		<input type="text" id="update_test" name="update_test" required><br>
-		<input type="submit" name="update" value="Update">
-	</form>
-	
+	<p>
+	<div class="tip left">
+		<a>Update data</a>
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+			<label for="update_DemoID">DemoID:</label>
+			<input type="text" id="update_DemoID" name="update_DemoID" required><br>
+			<label for="update_test">test:</label>
+			<input type="text" id="update_test" name="update_test" required><br>
+			<input type="submit" name="update" value="Update">
+		</form>
+	</div>
+	</p>
 	
 
 	<!-- Form to delete a record from the demo1 table -->
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-		<label for="delete_DemoID">DemoID:</label>
-		<input type="text" id="delete_DemoID" name="delete_DemoID" required><br>
-		<input type="submit" name="delete" value="Delete">
-	</form>
+	<p>
+	<div class="tip left">
+		<a>Delete data</a>
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+			<label for="delete_DemoID">DemoID:</label>
+			<input type="text" id="delete_DemoID" name="delete_DemoID" required><br>
+			<input type="submit" name="delete" value="Delete">
+		</form>
+	</div>
+	<p>
 	
 	<?php
 // Update an existing record in the demo1 table
