@@ -40,27 +40,28 @@ INSERT INTO `customer` (`CustomerID`, `FirstName`, `LastName`, `Password`, `Emai
 
 -- Dumping structure for table booking.demo1
 CREATE TABLE IF NOT EXISTS `demo1` (
-  `DemoID` int(11) NOT NULL,
+  `DemoID` int(11) NOT NULL AUTO_INCREMENT,
   `test` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`DemoID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table booking.demo1: ~13 rows (approximately)
+-- Dumping data for table booking.demo1: ~14 rows (approximately)
 /*!40000 ALTER TABLE `demo1` DISABLE KEYS */;
 INSERT INTO `demo1` (`DemoID`, `test`) VALUES
-	(1, 'Privet'),
-	(2, 'Ky'),
-	(3, 'Laragon moment'),
-	(4, 'proverka'),
-	(5, 'fkfk'),
-	(6, 'vvod'),
-	(7, 'privet kostja'),
-	(8, 'chivo s pipsami'),
-	(9, 'Console log'),
-	(10, 'Privet Kirill'),
-	(11, 'Sasha'),
-	(12, 'Ilja'),
-	(13, 'Kapusta');
+	(3, 'test'),
+	(4, 'ffgf'),
+	(5, 'fgf'),
+	(6, 'fgf'),
+	(7, 'fgf'),
+	(8, 'fgf'),
+	(9, 'fgf'),
+	(10, 'fgf'),
+	(12, 'fgf'),
+	(13, 'fgf'),
+	(14, 'fgf'),
+	(15, 'fgf'),
+	(16, 'fgf'),
+	(17, 'fgf');
 /*!40000 ALTER TABLE `demo1` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
