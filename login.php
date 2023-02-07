@@ -17,7 +17,7 @@
 <!-- Form to insert new data into the userstable -->
 <p>
 	<div class="tip left">
-		<a>Insert data</a>
+		<a>Registation</a>
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 		<label for="CustomerID">CustomerID:</label>
 		<input type="text" id="CustomerID" name="CustomerID" required><br>
@@ -83,6 +83,51 @@ if (isset($_POST['submit'])) {
         $stmt->execute();
         echo "New record created successfully";
         header("location: user_data.php");
+    }
+}
+?>
+
+
+<!-- Form to insert new data into the userstable -->
+<p>
+	<div class="tip left">
+		<a>Login</a>
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+
+        <label for="Email">Email:</label>
+		<input type="email" id="Email" name="Email" required><br>
+
+        <label for="Password">Password:</label>
+		<input type="text" id="Password" name="Password" required><br>
+
+
+
+		<input type="submit" name="login" value="Submit" id="submitBtn">
+		</form>
+	</div>
+	</p>
+
+    <?php
+
+// Connect to the database
+$host = "127.0.0.1";
+$dbname = "booking";
+$username = "root";
+$password = "";
+
+$conn = mysqli_connect($host, $username, $password, $dbname);
+
+if (isset($_POST['login'])) {
+    $Email = $_POST['Email'];
+    $Password = $_POST['Password'];
+    
+    $sql = "SELECT * FROM customer WHERE Email = '$Email' and Password = '$Password'";
+    $result = mysqli_query($conn, $sql);
+    
+    if (mysqli_num_rows($result) > 0) {
+        header("location: user_data.php");
+    } else {
+        echo "Incorrect Email or Password";
     }
 }
 ?>
