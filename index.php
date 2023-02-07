@@ -47,7 +47,7 @@
 		<a>Insert data</a>
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 		<label for="DemoID">DemoID:</label>
-		<input type="text" id="DemoID" name="DemoID" required><br>
+		<!--<input type="text" id="DemoID" name="DemoID" required><br>-->
 		<label for="test">test:</label>
 		<input type="text" id="test" name="test" required><br>
 		<input type="submit" name="Submit" value="Insert">
@@ -58,7 +58,7 @@
 	<?php
 // Insert new data into the users table
 if (isset($_POST['Submit'])) {
-    $DemoID = $_POST['DemoID'];
+    //$DemoID = $_POST['DemoID'];
     $test = $_POST['test'];
 	
 	if(empty($_POST['test'])){
@@ -71,16 +71,20 @@ if (isset($_POST['Submit'])) {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // Prepare and bind the SQL statement
 		
-        $stmt = $conn->prepare("INSERT INTO demo1 (DemoID, test) VALUES (:DemoID, :test)");
-        $stmt->bindParam(':DemoID',$DemoID);
+        $stmt = $conn->prepare("INSERT INTO demo1 (test) VALUES ( :test)");
+        //$stmt->bindParam(':DemoID',$DemoID);
 		$stmt->bindParam(':test', $test);
 		// Insert the data
 		$stmt->execute();
-		echo "New record created successfully";
+
+		echo "New record created successfully. ";
 		} catch (PDOException $e) {
 		echo "Error: " . $e->getMessage();
 		}
 		}
+
+
+
 	?>
 	
 	<!-- Form to update an existing record in the demo1 table -->
@@ -123,7 +127,7 @@ if (isset($_POST['Submit'])) {
 			// Prepare and bind the SQL statement
 			$stmt = $conn->prepare("UPDATE demo1 SET test=:update_test WHERE DemoID=:update_DemoID");
 			$stmt->bind;
-			$stmt->bindParam(':update_DemoID', $update_DemoID);
+			// $stmt->bindParam(':update_DemoID', $update_DemoID);
 			$stmt->bindParam(':update_test', $update_test);
 			// Update the record
 			$stmt->execute();
@@ -152,5 +156,7 @@ if (isset($_POST['Submit'])) {
 		}
 	}
 ?>
+
+
 </body>
 </html>
