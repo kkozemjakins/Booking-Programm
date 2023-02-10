@@ -50,6 +50,56 @@ $password = "";
                     <input type="submit" name="reg" class="button login__submit" value="Sign up now" id="submitBtn">
 	
 				</form>
+
+                
+                <?php
+
+
+                try {
+                    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+                    // set the PDO error mode to exception
+                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                    
+                    if (isset($_POST['reg'])) {
+                        $FirstName = $_POST['FirstName'];
+                        $LastName = $_POST['LastName'];
+                        $Password = $_POST['Password'];
+                        $RepeatPassword = $_POST['RepeatPassword'];
+                        $Email = $_POST['Email'];
+
+                        if ($Password ===  $RepeatPassword){
+                            // Prepare and bind the SQL statement
+                            $sql = "SELECT * FROM customer WHERE Email = :Email";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bindParam(':Email', $Email);
+                            $stmt->execute();
+                            
+                            if ($stmt->rowCount() > 0){
+                                echo '<p class="incorrect" >This email is already used</p>';
+                            } else {
+                                $stmt = $conn->prepare ("INSERT INTO customer (FirstName, LastName, Password, Email) VALUES (:FirstName, :LastName, :Password, :Email)");
+                                //$stmt->bindParam(':CustomerID', $CustomerID);
+                                $stmt->bindParam(':FirstName', $FirstName);
+                                $stmt->bindParam(':LastName', $LastName);
+                                $stmt->bindParam(':Password', $Password);
+                                $stmt->bindParam(':Email', $Email);
+                                
+                                // Insert the data
+                                $stmt->execute();
+                                header("Refresh:0");
+                            }
+                        }
+                        else{
+                            echo '<p class="incorrect" >Passwords don`t match</p>';
+                        }
+                    }
+                } catch (PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                }
+
+                ?>
+
                 <div class="social-login" >
                     <a id="SignIn">
                         <h3 onclick="SignIn();" >Sign in</h3>
@@ -66,53 +116,6 @@ $password = "";
 	</div>
 	
 
-<?php
-
-
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    
-    if (isset($_POST['reg'])) {
-        $FirstName = $_POST['FirstName'];
-        $LastName = $_POST['LastName'];
-        $Password = $_POST['Password'];
-        $RepeatPassword = $_POST['RepeatPassword'];
-        $Email = $_POST['Email'];
-
-        if ($Password ===  $RepeatPassword){
-            // Prepare and bind the SQL statement
-            $sql = "SELECT * FROM customer WHERE Email = :Email";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':Email', $Email);
-            $stmt->execute();
-            
-            if ($stmt->rowCount() > 0){
-                echo "This email is already used";
-            } else {
-                $stmt = $conn->prepare ("INSERT INTO customer (FirstName, LastName, Password, Email) VALUES (:FirstName, :LastName, :Password, :Email)");
-                //$stmt->bindParam(':CustomerID', $CustomerID);
-                $stmt->bindParam(':FirstName', $FirstName);
-                $stmt->bindParam(':LastName', $LastName);
-                $stmt->bindParam(':Password', $Password);
-                $stmt->bindParam(':Email', $Email);
-                
-                // Insert the data
-                $stmt->execute();
-                header("Refresh:0");
-            }
-        }
-        else{
-            echo "Passwords don`t match";
-        }
-    }
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-?>
     
 </body>
 </html>

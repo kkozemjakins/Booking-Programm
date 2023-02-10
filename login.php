@@ -24,6 +24,30 @@
 					</div>
                     
                     <input type="submit" name="login" class="button login__submit" value="Sign in now" id="submitBtn">
+					<?php
+
+					// Connect to the database
+					$host = "127.0.0.1";
+					$dbname = "booking";
+					$username = "root";
+					$password = "";
+
+					$conn = mysqli_connect($host, $username, $password, $dbname);
+
+					if (isset($_POST['login'])) {
+						$Email = $_POST['Email'];
+						$Password = $_POST['Password'];
+						
+						$sql = "SELECT * FROM customer WHERE Email = '$Email' and Password = '$Password'";
+						$result = mysqli_query($conn, $sql);
+						
+						if (mysqli_num_rows($result) > 0) {
+							header("Refresh:0; url=user_data.php");
+						} else {
+							echo '<p class="incorrect" >Incorrect Email or Password</p>';
+						}
+					}
+					?>
 	
 				</form>
                 <div class="social-login" >
@@ -41,30 +65,7 @@
 		</div>
 	</div>
 	
-    <?php
 
-// Connect to the database
-$host = "127.0.0.1";
-$dbname = "booking";
-$username = "root";
-$password = "";
-
-$conn = mysqli_connect($host, $username, $password, $dbname);
-
-if (isset($_POST['login'])) {
-    $Email = $_POST['Email'];
-    $Password = $_POST['Password'];
-    
-    $sql = "SELECT * FROM customer WHERE Email = '$Email' and Password = '$Password'";
-    $result = mysqli_query($conn, $sql);
-    
-    if (mysqli_num_rows($result) > 0) {
-        header("Refresh:0; url=user_data.php");
-    } else {
-        echo "Incorrect Email or Password";
-    }
-}
-?>
 
 </body>
 </html>

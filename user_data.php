@@ -2,11 +2,11 @@
 <html>
 <head>
 	<title>booking</title>
-	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css\user_data.css">
 </head>
 <body>
     <!-- Display data from the users table -->
-    <table>
+    <table class="styled-table">
         <tr>
             <th>CustomerID</th>
             <th>FirstName</th>
