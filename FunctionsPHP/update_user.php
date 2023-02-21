@@ -19,13 +19,15 @@ try {
     $lastName = $_POST["LastName"];
     $password = $_POST["Password"];
     $email = $_POST["Email"];
+    $access = $_POST["Access"];
 
     // Update the user data in the database
-    $query = $conn->prepare("UPDATE customer SET FirstName=:firstName, LastName=:lastName, Password=:password, Email=:email WHERE CustomerID=:customerID");
+    $query = $conn->prepare("UPDATE customer SET FirstName=:firstName, LastName=:lastName, Password=:password, Email=:email, Access=:access WHERE CustomerID=:customerID");
     $query->bindParam(":firstName", $firstName);
     $query->bindParam(":lastName", $lastName);
     $query->bindParam(":password", $password);
     $query->bindParam(":email", $email);
+    $query->bindParam(":access", $access);
     $query->bindParam(":customerID", $customerID);
     $query->execute();
 
