@@ -20,7 +20,7 @@
 
 					<div class="login__field">
 						<i class="login__icon fas fa-lock"></i>
-                        <input type="text" id="Password" name="Password" class="login__input" placeholder="Password" required>
+                        <input type="password" id="Password" name="Password" class="login__input" placeholder="Password" required>
 					</div>
                     
                     <input type="submit" name="login" class="button login__submit" value="Sign in now" id="submitBtn">
