@@ -16,7 +16,7 @@
 $host = "127.0.0.1";
 $dbname = "booking";
 $username = "root";
-$password = "";
+$password = "password";
 ?>
 
 <div id="container2">

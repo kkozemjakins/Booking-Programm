@@ -30,7 +30,7 @@
 					$host = "127.0.0.1";
 					$dbname = "booking";
 					$username = "root";
-					$password = "";
+					$password = "password";
 
 					$conn = mysqli_connect($host, $username, $password, $dbname);
 

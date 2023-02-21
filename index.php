@@ -20,7 +20,7 @@
 	$host = "127.0.0.1";
 	$dbname = "booking";
 	$username = "root";
-	$password = "";
+	$password = "password";
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
