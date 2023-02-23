@@ -65,7 +65,7 @@
   }
   
   .nav__list--primary {
-    /* IMPORTANT!!!: it will make element centralized */
+    /* it will make element centralized */
     margin: 0 auto;
   }
   

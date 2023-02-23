@@ -37,6 +37,7 @@
             <th>Price</th>
             <th>Address</th>
             <th>Details</th>
+            <th></th>
         </tr>
         <?php
         // Connect to the database
@@ -65,7 +66,8 @@
             echo "<td>" . $row['Name'] . "</td>";
             echo "<td>" . $row['Price'] . "</td>";
             echo "<td>" . $row['Address'] . "</td>";
-            echo "<td>" . $row['Details'] . "</td></tr>";
+            echo "<td>" . $row['Details'] . "</td>";
+            echo "<td><a href='templateDemo/template-test.php?id=" . $row['OffersID'] . "'>Go to</a></td></tr>";
         }
         ?>
 
