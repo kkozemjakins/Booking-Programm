@@ -59,6 +59,9 @@
             <th>Price</th>
             <th>Address</th>
             <th>Details</th>
+            <th>Link</th>
+            <th>ImageID</th>
+            <th></th>
         </tr>
         <?php
         // Connect to the database
@@ -87,7 +90,10 @@
             echo "<td>" . $row['Name'] . "</td>";
             echo "<td>" . $row['Price'] . "</td>";
             echo "<td>" . $row['Address'] . "</td>";
-            echo "<td>" . $row['Details'] . "</td></tr>";
+            echo "<td>" . $row['Details'] . "</td>";
+            echo "<td><a href = '" . $row['Link'] . "'>" . $row['Link'] . "</a></td>";
+            echo "<td>" . $row['ImageID'] . "</td>";
+            echo "<td><a href='../template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td></tr>";
         }
         ?>
 
@@ -103,8 +109,12 @@
 
         <input type="text" name="Details" class="login__input"  placeholder="Details" required>
 
+        <input type="text" name="Link" class="login__input"  placeholder="Link" required>
+
         <input type="submit" name="activity" value="Add activity">
     </form>
+
+    <a href="..\..\images.php">IMAGES</a>
 
     <?php
     try {
@@ -114,13 +124,15 @@
             $Address = $_POST['Address'];
             $Price = $_POST['Price'];
             $Details = $_POST['Details'];
+            $Link = $_POST['Link'];
 
-            $stmt = $conn->prepare("INSERT INTO offers(Name, Address, Price, Details) VALUES ( :Name, :Address, :Price, :Details)");
+            $stmt = $conn->prepare("INSERT INTO offers(Name, Address, Price, Details,Link) VALUES ( :Name, :Address, :Price, :Details, :Link)");
 
             $stmt->bindParam(':Name', $Name);
             $stmt->bindParam(':Address', $Address);
             $stmt->bindParam(':Price', $Price);
             $stmt->bindParam(':Details', $Details);
+            $stmt->bindParam(':Link', $Link);
                                     
             // Insert the data
             $stmt->execute();

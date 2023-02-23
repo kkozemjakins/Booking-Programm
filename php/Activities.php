@@ -67,7 +67,7 @@
             echo "<td>" . $row['Price'] . "</td>";
             echo "<td>" . $row['Address'] . "</td>";
             echo "<td>" . $row['Details'] . "</td>";
-            echo "<td><a href='templateDemo/template-test.php?id=" . $row['OffersID'] . "'>Go to</a></td></tr>";
+            echo "<td><a href='template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td></tr>";
         }
         ?>
 

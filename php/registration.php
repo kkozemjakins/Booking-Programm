@@ -87,7 +87,7 @@ $password = "";
                                 
                                 // Insert the data
                                 $stmt->execute();
-                                header("Refresh:0");
+                                header("Refresh:0, url=login.php");
                             }
                         }
                         else{
