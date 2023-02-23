@@ -11,10 +11,10 @@
 
     <header>
     <div class="container row">
-        <a href="#" class="logo">CTRL</a>
+        <a href="#" class="logo">Resting</a>
         <nav class="nav">
         <ul class="nav__list nav__list--primary">
-            <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="Activities.php" class="nav__link">Activities</a></li>
             <li class="nav__item"><a href="#" class="nav__link">About</a></li>
             <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
         </ul>

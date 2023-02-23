@@ -2,27 +2,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Защищенная страница</title>
+	<title>booking</title>
+	<link rel="stylesheet" href="..\..\css\admin\MainAdmin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Добро пожаловать на защищенную страницу</h1>
-  <p>Только авторизованные пользователи могут увидеть эту страницу.</p>
 
-  <?php
+    <header>
+    <div class="container row">
+        <a href="#" class="logo">Resting</a>
+        <nav class="nav">
+        <ul class="nav__list nav__list--primary">
+            <li class="nav__item"><a href="ActivitiesAdmin.php" class="nav__link">Activities</a></li>
+            <li class="nav__item"><a href="user_data.php" class="nav__link">User data</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+        </ul>
+        <ul class="nav__list">
+            <li class="nav__item">
+              <a class="nav__link">
 
-    if (isset($_POST['logout'])) {
-    session_destroy();
-    header("Refresh:0");
-    //header('Location: LoginAdmin.php');
-    exit;
-    }
-    ?>
+                <form action='..\..\FunctionsPHP\logout.php' method="post">
+                  <button type="submit" name="logout">Exit</button>
 
-    <form method="post">
-    <button type="submit" name="logout">Выйти</button>
-    </form>
+                </form>
+              </a>
+            </li>
+            <li>
+              <a class="nav__link">
+                <?php
+                
+                  if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
+          
+                    echo 'Welcome, ' . $_SESSION['username'] . '!';
+                  }
+                ?>
+              </a>
+            </li>
+        </ul>
+        </nav>
+    </div>
+    </header>
 
-</form>
+    
 </body>
 </html>

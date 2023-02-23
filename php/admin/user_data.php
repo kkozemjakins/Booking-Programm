@@ -3,7 +3,7 @@
 <html>
 <head>
 	<title>booking</title>
-	<link rel="stylesheet" href="..\..\css\user_data.css">
+	<link rel="stylesheet" href="..\..\css\admin\user_data.css">
     <script src="..\..\js\user_data.js" defer></script>
 </head>
 <body>

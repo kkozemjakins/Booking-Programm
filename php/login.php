@@ -45,11 +45,15 @@
 						if (mysqli_num_rows($result) > 0) {//checks if the user is already sign up
 							$_SESSION['authorized'] = true;
 
+							$_SESSION['username'] = $Email;
+				
+					
+
 							$UserAccess = "SELECT * FROM customer WHERE Email = '$Email' and Password = '$Password' and Access = 1";
 							$AccessResult = mysqli_query($conn, $UserAccess);
 
 							if (mysqli_num_rows($AccessResult) > 0) {//check what level of access the user has admin or user
-								header("Refresh:0; url=admin\user_data.php");
+								header("Refresh:0; url=admin\MainAdmin.php");
 							}
 							else{
 								header("Refresh:0; url=user\UserMain.php");
