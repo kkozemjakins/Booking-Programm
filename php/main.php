@@ -2,54 +2,32 @@
 <html>
 <head>
 	<title>booking</title>
-	<link rel="stylesheet" href="..\css\user_data.css">
-    <script src="..\js\user_data.js" defer></script>
+	<link rel="stylesheet" href="..\css\main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Display data from the users table -->
-    <table class="styled-table">
-        <tr>
-            <th>CustomerID</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Password</th>
-            <th>Email</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <?php
-        // Connect to the database
-        $host = "127.0.0.1";
-        $dbname = "booking";
-        $username = "root";
-        $password = "";
 
-        try {
-            $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $query = $conn->prepare("SELECT * FROM customer");
-            $query->execute();
-            $results = $query->fetchAll();
-        } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
+    <header>
+    <div class="container row">
+        <a href="#" class="logo">CTRL</a>
+        <nav class="nav">
+        <ul class="nav__list nav__list--primary">
+            <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">About</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+        </ul>
+        <ul class="nav__list">
+            <li class="nav__item"><a href="login.php" class="nav__link">Sign in</a></li>
+            <li class="nav__item">
+            <a href="registration.php" class="nav__link nav__link--button">Sign up</a>
+            </li>
+        </ul>
+        </nav>
+    </div>
+    </header>
 
-        /*id='UpdateValuesForm" . $row['CustomerID'] . "'
-          id='ShowUpdateForm" . $row['CustomerID'] . "' onclick='ShowUpdateForm(" . $row['CustomerID'] . ")'
-        */
-
-        foreach ($results as $row) {
-            echo "<tr><td>" . $row['CustomerID'] . "</td>";
-            echo "<td>" . $row['FirstName'] . "</td>";
-            echo "<td>" . $row['LastName'] . "</td>";
-            echo "<td>" . $row['Password'] . "</td>";
-            echo "<td>" . $row['Email'] . "</td>";
-            echo "<td>";
-
-        }
-        ?>
-
-    </table>
+    
 </body>
 </html>
