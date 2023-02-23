@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" href="css\registration.css">
-    <script src="js\login.js" defer></script>
+    <link rel="stylesheet" href="..\css\registration.css">
+    <script src="..\js\login.js" defer></script>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
 $host = "127.0.0.1";
 $dbname = "booking";
 $username = "root";
-$password = "password";
+$password = "";
 ?>
 
 <div id="container2">

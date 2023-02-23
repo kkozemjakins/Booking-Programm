@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>booking</title>
-	<link rel="stylesheet" href="css\login.css">
-    <script src="js\login.js" defer></script>
+	<link rel="stylesheet" href="..\css\login.css">
+    <script src="..\js\login.js" defer></script>
 </head>
 <body>
 
@@ -25,12 +25,13 @@
                     
                     <input type="submit" name="login" class="button login__submit" value="Sign in now" id="submitBtn">
 					<?php
+					session_start();
 
 					// Connect to the database
 					$host = "127.0.0.1";
 					$dbname = "booking";
 					$username = "root";
-					$password = "password";
+					$password = "";
 
 					$conn = mysqli_connect($host, $username, $password, $dbname);
 
@@ -42,7 +43,8 @@
 						$result = mysqli_query($conn, $sql);
 						
 						if (mysqli_num_rows($result) > 0) {
-							header("Refresh:0; url=user_data.php");
+							$_SESSION['authorized'] = true;
+							header("Refresh:0; url=admin\user_data.php");
 						} else {
 							echo '<p class="incorrect" >Incorrect Email or Password</p>';
 						}

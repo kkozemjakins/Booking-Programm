@@ -3,7 +3,7 @@
 $host = "127.0.0.1";
 $dbname = "booking";
 $username = "root";
-$password = "password";
+$password = "";
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -12,7 +12,7 @@ try {
     $query = $conn->prepare("DELETE FROM customer WHERE CustomerID = :CustomerID");
     $query->bindParam(':CustomerID', $_POST['CustomerID']);
     $query->execute();
-    header('Location: ..\user_data.php');
+    header('Location: ..\php\admin\user_data.php');
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }

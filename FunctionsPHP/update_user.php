@@ -4,7 +4,7 @@
 $host = "127.0.0.1";
 $dbname = "booking";
 $username = "root";
-$password = "password";
+$password = "";
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -32,7 +32,7 @@ try {
     $query->execute();
 
     // Redirect the user back to the user data table
-    header("Location: ..\user_data.php");
+    header("Location: ..\php\admin\user_data.php");
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }
