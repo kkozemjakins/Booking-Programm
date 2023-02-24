@@ -3,9 +3,23 @@
 <head>
 	<title>booking</title>
 	<link rel="stylesheet" href="..\css\login.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="..\js\login.js" defer></script>
 </head>
 <body>
+
+	<header>
+    <div class="container row">
+        <a href="main.php" class="logo">Resting</a>
+        <nav class="nav">
+        <ul class="nav__list nav__list--primary">
+            <li class="nav__item"><a href="main.php" class="nav__link">Main page</a></li>
+        </ul>
+        </nav>
+    </div>
+    </header>
 
 <!--style="display: none"-->
     <div id="container">
@@ -62,6 +76,11 @@
                 <div class="social-login" >
                     <a id="Sign up">
                         <h3 onclick="SignUp();">Sign up</h3>
+                    </a>
+			    </div>
+				<div class="social-main" >
+                    <a id="Sign up">
+                        <h3 onclick="ToMain();">As guest</h3>
                     </a>
 			    </div>
 			</div>

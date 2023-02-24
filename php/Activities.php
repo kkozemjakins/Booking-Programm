@@ -32,7 +32,6 @@
     <!-- Display data from the users table -->
     <table class="styled-table">
         <tr>
-            <th>OffersID</th>
             <th>Name</th>
             <th>Price</th>
             <th>Address</th>
@@ -62,8 +61,7 @@
         */
 
         foreach ($results as $row) {
-            echo "<tr><td>" . $row['OffersID'] . "</td>";
-            echo "<td>" . $row['Name'] . "</td>";
+            echo "<tr><td>" . $row['Name'] . "</td>";
             echo "<td>" . $row['Price'] . "</td>";
             echo "<td>" . $row['Address'] . "</td>";
             echo "<td>" . $row['Details'] . "</td>";

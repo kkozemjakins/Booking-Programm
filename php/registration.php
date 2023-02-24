@@ -87,6 +87,23 @@ $password = "";
                                 
                                 // Insert the data
                                 $stmt->execute();
+
+                                $to = $Email;
+                                $subject =  "Welcome to Resting!";
+                                $message =  "Hello, now you are registered on the Resting service!";
+                                $headers =  "From: kdmk.st@gmail.com\r\n";
+                                $headers .= "Reply-To: sender@example.com\r\n";
+                                $headers .= "CC: cc@example.com\r\n"; // Дополнительный получатель
+                                $headers .= "BCC: bcc@example.com\r\n"; // Скрытая копия
+
+                                // Отправляем письмо
+                                if(mail($to, $subject, $message, $headers)) {
+                                    echo "Email sent successfully";
+                                } else {
+                                    echo "Email delivery failed";
+                                }
+
+
                                 header("Refresh:0, url=login.php");
                             }
                         }
@@ -97,6 +114,7 @@ $password = "";
                 } catch (PDOException $e) {
                     echo "Error: " . $e->getMessage();
                 }
+
 
                 ?>
 
