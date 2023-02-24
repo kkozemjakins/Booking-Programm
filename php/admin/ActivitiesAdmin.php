@@ -96,7 +96,7 @@
             echo "<td>" . $row['ImageID'] . "</td>";
             echo "<td><a href='../template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td>";
             echo "<td>";
-            echo "<form action='..\..\FunctionsPHP\delete_activities.php' method='post'>";
+            echo "<form action='..\..\FunctionsPHP\activities\delete_activities.php' method='post'>";
             echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
             echo "<input type='submit' value='Delete'>";
             echo "</form>";
