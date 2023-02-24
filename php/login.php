@@ -41,28 +41,21 @@
 						
 						$sql = "SELECT * FROM customer WHERE Email = '$Email' and Password = '$Password'";
 						$result = mysqli_query($conn, $sql);
-						
-						if (mysqli_num_rows($result) > 0) {//checks if the user is already sign up
-							$_SESSION['authorized'] = true;
-
-							$_SESSION['username'] = $Email;
-				
 					
-
-							$UserAccess = "SELECT * FROM customer WHERE Email = '$Email' and Password = '$Password' and Access = 1";
-							$AccessResult = mysqli_query($conn, $UserAccess);
-
-							if (mysqli_num_rows($AccessResult) > 0) {//check what level of access the user has admin or user
+						if (mysqli_num_rows($result) > 0) {
+							$row = mysqli_fetch_assoc($result);
+							$_SESSION['authorized'] = true;
+							$_SESSION['username'] = $row['FirstName'] . ' ' . $row['LastName']; // Устанавливаем $_SESSION['username'] равным имени и фамилии пользователя
+							if ($row['Access'] == 1) {
 								header("Refresh:0; url=admin\MainAdmin.php");
-							}
-							else{
+							} else {
 								header("Refresh:0; url=user\UserMain.php");
 							}
-
 						} else {
 							echo '<p class="incorrect" >Incorrect Email or Password</p>';
 						}
 					}
+					
 					?>
 	
 				</form>

@@ -81,6 +81,7 @@
             echo 'Error: ' . $e->getMessage();
         }
 
+        ob_start();
         /*id='UpdateValuesForm" . $row['CustomerID'] . "'
           id='ShowUpdateForm" . $row['CustomerID'] . "' onclick='ShowUpdateForm(" . $row['CustomerID'] . ")'
         */
@@ -93,13 +94,19 @@
             echo "<td>" . $row['Details'] . "</td>";
             echo "<td><a href = '" . $row['Link'] . "'>" . $row['Link'] . "</a></td>";
             echo "<td>" . $row['ImageID'] . "</td>";
-            echo "<td><a href='../template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td></tr>";
+            echo "<td><a href='../template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td>";
+            echo "<td>";
+            echo "<form action='..\..\FunctionsPHP\delete_activities.php' method='post'>";
+            echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
+            echo "<input type='submit' value='Delete'>";
+            echo "</form>";
+            echo "</td></tr>";
         }
         ?>
 
     </table>
 
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
     
         <input type="text" name="Name" class="login__input"  placeholder="Name" required>
 
@@ -111,40 +118,75 @@
 
         <input type="text" name="Link" class="login__input"  placeholder="Link" required>
 
+        <input type="file" name="image">
+
         <input type="submit" name="activity" value="Add activity">
     </form>
 
-    <a href="..\..\images.php">IMAGES</a>
+<?php
+  try {
+      $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    
 
-    <?php
-    try {
+      if (isset($_POST['activity'])) {
+          // Save the image information to the database
+          if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
+              $fileName = $_FILES['image']['name'];
+              $fileType = $_FILES['image']['type'];
+              $fileSize = $_FILES['image']['size'];
+              $fileTmp = $_FILES['image']['tmp_name'];
+              $fileError = $_FILES['image']['error'];
+              $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
 
-        if (isset($_POST['activity'])) {
-            $Name = $_POST['Name'];
-            $Address = $_POST['Address'];
-            $Price = $_POST['Price'];
-            $Details = $_POST['Details'];
-            $Link = $_POST['Link'];
+              if (in_array($fileType, $allowedTypes)) {
+                  $newLocation = '../../images/' . $fileName;
+                  move_uploaded_file($fileTmp, $newLocation);
+                  $query = "INSERT INTO images (name, type, size, path) VALUES (:name, :type, :size, :path)";
+                  $stmt = $pdo->prepare($query);
+                  $stmt->execute([
+                      'name' => $fileName,
+                      'type' => $fileType,
+                      'size' => $fileSize,
+                      'path' => $newLocation,
+                  ]);
 
-            $stmt = $conn->prepare("INSERT INTO offers(Name, Address, Price, Details,Link) VALUES ( :Name, :Address, :Price, :Details, :Link)");
+                  // Get the ID of the last inserted image
+                  $imageId = $pdo->lastInsertId();
+              } else {
+                  echo "Only JPG, PNG, and GIF images are allowed.";
+              }
+          }
 
-            $stmt->bindParam(':Name', $Name);
-            $stmt->bindParam(':Address', $Address);
-            $stmt->bindParam(':Price', $Price);
-            $stmt->bindParam(':Details', $Details);
-            $stmt->bindParam(':Link', $Link);
-                                    
-            // Insert the data
-            $stmt->execute();
-            header("Refresh:0");
-        }
+          // Save the information to the table offers
+          $Name = $_POST['Name'];
+          $Address = $_POST['Address'];
+          $Price = $_POST['Price'];
+          $Details = $_POST['Details'];
+          $Link = $_POST['Link'];
 
-    }catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
+          $stmt = $pdo->prepare("INSERT INTO offers(Name, Address, Price, Details, Link, ImageID) VALUES (:Name, :Address, :Price, :Details, :Link, :ImageID)");
 
+          $stmt->bindParam(':Name', $Name);
+          $stmt->bindParam(':Address', $Address);
+          $stmt->bindParam(':Price', $Price);
+          $stmt->bindParam(':Details', $Details);
+          $stmt->bindParam(':Link', $Link);
+          $stmt->bindParam(':ImageID', $imageId);
 
-    ?>
+          $stmt->execute();
+
+          // End output buffering and send output to the browser
+
+          header("Refresh:0");
+
+          ob_end_flush();
+      }
+
+  } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+  }
+  ?>
+
 
     
 </body>

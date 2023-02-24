@@ -53,8 +53,7 @@
             <th>LastName</th>
             <th>Password</th>
             <th>Email</th>
-            <th></th>
-            <th></th>
+            <th>Access</th>
         </tr>
         <?php
         // Connect to the database
