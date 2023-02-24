@@ -108,17 +108,17 @@
 
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
     
-        <input type="text" name="Name" class="login__input"  placeholder="Name" required>
+        <input type="text" name="Name"  placeholder="Name" required>
 
-        <input type="text" name="Address" class="login__input"  placeholder="Address" required>
+        <input type="text" name="Address"  placeholder="Address" required>
 
-        <input type="text" name="Price" class="login__input"  placeholder="Price" required>
+        <textarea name="Price" rows="5" cols="50" placeholder="Price"  required></textarea>
 
-        <input type="text" name="Details" class="login__input"  placeholder="Details" required>
+        <textarea name="Details" rows="5" cols="50" placeholder="Details"  required></textarea>
 
-        <input type="text" name="Link" class="login__input"  placeholder="Link" required>
+        <input type="text" name="Link"  placeholder="Link" required>
 
-        <input type="file" name="image">
+        <input type="file" name="image" required>
 
         <input type="submit" name="activity" value="Add activity">
     </form>
@@ -160,8 +160,13 @@
           // Save the information to the table offers
           $Name = $_POST['Name'];
           $Address = $_POST['Address'];
+
           $Price = $_POST['Price'];
+          $Price = htmlspecialchars($Price);
+
           $Details = $_POST['Details'];
+          $Details = htmlspecialchars($Details);
+
           $Link = $_POST['Link'];
 
           $stmt = $pdo->prepare("INSERT INTO offers(Name, Address, Price, Details, Link, ImageID) VALUES (:Name, :Address, :Price, :Details, :Link, :ImageID)");
@@ -186,8 +191,10 @@
       echo "Error: " . $e->getMessage();
   }
   ?>
-
-
+  <footer>
+    <div class="container row">
+    </div>
+  </footer>
     
 </body>
 </html>

@@ -7,3 +7,7 @@ function SignUp(){
 function SignIn(){
     location.href = "login.php";
 };
+
+function ToMain(){
+    location.href = "main.php";
+};
