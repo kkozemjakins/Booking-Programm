@@ -60,6 +60,8 @@
 							$row = mysqli_fetch_assoc($result);
 							$_SESSION['authorized'] = true;
 							$_SESSION['username'] = $row['FirstName'] . ' ' . $row['LastName']; // Устанавливаем $_SESSION['username'] равным имени и фамилии пользователя
+							$_SESSION['access'] = $row['Access'];
+
 							if ($row['Access'] == 1) {
 								header("Refresh:0; url=admin\MainAdmin.php");
 							} else {

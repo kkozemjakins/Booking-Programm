@@ -1,5 +1,5 @@
 <?php
-    require '..\..\FunctionsPHP\session_check_admin.php'; 
+    require '..\..\FunctionsPHP\session_check.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@
                 
                   if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
           
-                    echo 'Welcome, ' . $_SESSION['username'] . '!'.  $_SESSION['access'];
+                    echo 'Welcome, ' . $_SESSION['username'] . '!';
                   }
                 ?>
               </a>

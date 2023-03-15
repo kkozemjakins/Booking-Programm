@@ -1,4 +1,4 @@
-<?php require '..\..\FunctionsPHP\session_check.php'; ?>
+<?php require '..\..\FunctionsPHP\session_check_admin.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,7 @@
                 
                   if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
           
-                    echo 'Welcome, ' . $_SESSION['username'] . '!';
+                    echo 'Welcome, ' . $_SESSION['username'] . '!'.  $_SESSION['access'];
                   }
                 ?>
               </a>
