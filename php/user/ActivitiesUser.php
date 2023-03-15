@@ -50,19 +50,6 @@
     </div>
     </header>
 
-
-    <!-- Display data from the users table -->
-    <table class="styled-table">
-        <tr>
-            <th>OffersID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Address</th>
-            <th>Details</th>
-            <th>Link</th>
-            <th>ImageID</th>
-            <th></th>
-        </tr>
         <?php
         // Connect to the database
         $host = "127.0.0.1";
@@ -81,116 +68,20 @@
             echo 'Error: ' . $e->getMessage();
         }
 
-        ob_start();
-        /*id='UpdateValuesForm" . $row['CustomerID'] . "'
-          id='ShowUpdateForm" . $row['CustomerID'] . "' onclick='ShowUpdateForm(" . $row['CustomerID'] . ")'
-        */
+        $query = "SELECT * FROM offers LEFT JOIN images on offers.ImageID = images.ImageID";
+        $result = mysqli_query($conn, $query);
 
         foreach ($results as $row) {
-            echo "<tr><td>" . $row['OffersID'] . "</td>";
-            echo "<td>" . $row['Name'] . "</td>";
-            echo "<td>" . $row['Price'] . "</td>";
-            echo "<td>" . $row['Address'] . "</td>";
-            echo "<td>" . $row['Details'] . "</td>";
-            echo "<td><a href = '" . $row['Link'] . "'>" . $row['Link'] . "</a></td>";
-            echo "<td>" . $row['ImageID'] . "</td>";
-            echo "<td><a href='../template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td>";
-            echo "<td>";
-            echo "<form action='..\..\FunctionsPHP\activities\delete_activities.php' method='post'>";
-            echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
-            echo "<input type='submit' value='Delete'>";
-            echo "</form>";
-            echo "</td></tr>";
+
+            echo '<div><img src="'. $row['path'] .'" alt="'. $row['Name'] .'" height="100">';
+            echo "<p><h3>" . $row['Name'] . "</h3></p>";
+            echo "<p>" . $row['path'] . "</p>";
+            echo "<p>" . $row['Address'] . "</p></div>";
+
         }
         ?>
 
-    </table>
 
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-    
-        <input type="text" name="Name"  placeholder="Name" required>
-
-        <input type="text" name="Address"  placeholder="Address" required>
-
-        <textarea name="Price" rows="5" cols="50" placeholder="Price"  required></textarea>
-
-        <textarea name="Details" rows="5" cols="50" placeholder="Details"  required></textarea>
-
-        <input type="text" name="Link"  placeholder="Link" required>
-
-        <input type="file" name="image" required>
-
-        <input type="submit" name="activity" value="Add activity">
-    </form>
-
-<?php
-  try {
-      $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    
-
-      if (isset($_POST['activity'])) {
-          // Save the image information to the database
-          if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
-              $fileName = $_FILES['image']['name'];
-              $fileType = $_FILES['image']['type'];
-              $fileSize = $_FILES['image']['size'];
-              $fileTmp = $_FILES['image']['tmp_name'];
-              $fileError = $_FILES['image']['error'];
-              $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
-
-              if (in_array($fileType, $allowedTypes)) {
-                  $newLocation = '../../images/' . $fileName;
-                  move_uploaded_file($fileTmp, $newLocation);
-                  $query = "INSERT INTO images (name, type, size, path) VALUES (:name, :type, :size, :path)";
-                  $stmt = $pdo->prepare($query);
-                  $stmt->execute([
-                      'name' => $fileName,
-                      'type' => $fileType,
-                      'size' => $fileSize,
-                      'path' => $newLocation,
-                  ]);
-
-                  // Get the ID of the last inserted image
-                  $imageId = $pdo->lastInsertId();
-              } else {
-                  echo "Only JPG, PNG, and GIF images are allowed.";
-              }
-          }
-
-          // Save the information to the table offers
-          $Name = $_POST['Name'];
-          $Address = $_POST['Address'];
-
-          $Price = $_POST['Price'];
-          $Price = htmlspecialchars($Price);
-
-          $Details = $_POST['Details'];
-          $Details = htmlspecialchars($Details);
-
-          $Link = $_POST['Link'];
-
-          $stmt = $pdo->prepare("INSERT INTO offers(Name, Address, Price, Details, Link, ImageID) VALUES (:Name, :Address, :Price, :Details, :Link, :ImageID)");
-
-          $stmt->bindParam(':Name', $Name);
-          $stmt->bindParam(':Address', $Address);
-          $stmt->bindParam(':Price', $Price);
-          $stmt->bindParam(':Details', $Details);
-          $stmt->bindParam(':Link', $Link);
-          $stmt->bindParam(':ImageID', $imageId);
-
-          $stmt->execute();
-
-          // End output buffering and send output to the browser
-
-          header("Refresh:0");
-
-          ob_end_flush();
-      }
-
-  } catch (PDOException $e) {
-      echo "Error: " . $e->getMessage();
-  }
-  ?>
   <footer>
     <div class="container row">
     </div>
