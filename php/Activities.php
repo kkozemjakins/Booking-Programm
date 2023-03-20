@@ -30,14 +30,6 @@
 
 
     <!-- Display data from the users table -->
-    <table class="styled-table">
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Address</th>
-            <th>Details</th>
-            <th></th>
-        </tr>
         <?php
         // Connect to the database
         $host = "127.0.0.1";
@@ -49,7 +41,7 @@
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $query = $conn->prepare("SELECT * FROM offers");
+            $query = $conn->prepare("SELECT * FROM offers LEFT JOIN images on offers.ImageID = images.ImageID");
             $query->execute();
             $results = $query->fetchAll();
         } catch (PDOException $e) {
@@ -60,15 +52,15 @@
           id='ShowUpdateForm" . $row['CustomerID'] . "' onclick='ShowUpdateForm(" . $row['CustomerID'] . ")'
         */
 
+        /*https://freefrontend.com/css-cards/*/
+
         foreach ($results as $row) {
-            echo "<tr><td>" . $row['Name'] . "</td>";
-            echo "<td>" . $row['Price'] . "</td>";
-            echo "<td>" . $row['Address'] . "</td>";
-            echo "<td>" . $row['Details'] . "</td>";
-            echo "<td><a href='template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td></tr>";
+            echo "</div>";
+            echo "<p>" . $row['Name'] . "</p>";
+            echo "<p>" . $row['Address'] . "</p>";
+            echo "<p><a href='template/template.php?id=" . $row['OffersID'] . "'>Go to</a></p>";
+            echo "</div>";
         }
         ?>
-
-    </table>
 </body>
 </html>
