@@ -2,10 +2,12 @@
 <html>
 <head>
 	<title>booking</title>
-	<link rel="stylesheet" href="..\css\activities.css">
+	<link rel="stylesheet" href="..\css\activitiesGuest.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="..\js\Activities.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -54,13 +56,51 @@
 
         /*https://freefrontend.com/css-cards/*/
 
+        ?>
+
+        <div class="cards">
+
+        <?php
         foreach ($results as $row) {
-            echo "</div>";
+        
+            echo '<div class="card">';
+            echo '<div class="card__image-holder">';
+            echo    '<img class="card__image" src="../'. $row['path'] .'" alt="wave"/>';
+            echo '</div>';
+            echo '<div class="card-title">';
+            echo    '<a href="#" class="toggle-info btn">';
+            echo    '<span class="left"></span>';
+            echo    '<span class="right"></span>';
+            echo    '</a>';
+            echo    '<h2>';
+            echo        $row['Name'];
+            echo        '<small>'. $row['Address'] .'</small>';
+            echo    '</h2>';
+            echo '</div>';
+            echo '<div class="card-flap flap1">';
+            echo   '<div class="card-description">';
+            echo    $row['Details'];
+            echo   '</div>';
+            echo    '<div class="card-flap flap2">';
+            echo    '<div class="card-actions">';
+            echo        '<a href="template/template.php?id=' . $row['OffersID'] . '"class="btn">Read more</a>';
+            echo    '</div>';
+            echo    '</div>';
+            echo  '</div>';
+            echo '</div>';
+            
+            /*echo "</div>";
             echo "<p>" . $row['Name'] . "</p>";
             echo "<p>" . $row['Address'] . "</p>";
             echo "<p><a href='template/template.php?id=" . $row['OffersID'] . "'>Go to</a></p>";
-            echo "</div>";
+            echo "</div>";*/
         }
         ?>
+
+        </div>
+
+
+
+
 </body>
 </html>

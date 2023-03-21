@@ -139,7 +139,7 @@
               $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
 
               if (in_array($fileType, $allowedTypes)) {
-                  $newLocation = '../../images/' . $fileName;
+                  $newLocation = 'images/' . $fileName;
                   move_uploaded_file($fileTmp, $newLocation);
                   $query = "INSERT INTO images (name, type, size, path) VALUES (:name, :type, :size, :path)";
                   $stmt = $pdo->prepare($query);
