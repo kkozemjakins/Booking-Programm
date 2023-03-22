@@ -50,11 +50,6 @@
             echo 'Error: ' . $e->getMessage();
         }
 
-        /*id='UpdateValuesForm" . $row['CustomerID'] . "'
-          id='ShowUpdateForm" . $row['CustomerID'] . "' onclick='ShowUpdateForm(" . $row['CustomerID'] . ")'
-        */
-
-        /*https://freefrontend.com/css-cards/*/
 
         ?>
 
@@ -83,17 +78,11 @@
             echo   '</div>';
             echo    '<div class="card-flap flap2">';
             echo    '<div class="card-actions">';
-            echo        '<a href="template/template.php?id=' . $row['OffersID'] . '"class="btn">Read more</a>';
+            echo        '<a href="template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
             echo    '</div>';
             echo    '</div>';
             echo  '</div>';
             echo '</div>';
-            
-            /*echo "</div>";
-            echo "<p>" . $row['Name'] . "</p>";
-            echo "<p>" . $row['Address'] . "</p>";
-            echo "<p><a href='template/template.php?id=" . $row['OffersID'] . "'>Go to</a></p>";
-            echo "</div>";*/
         }
         ?>
 

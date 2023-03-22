@@ -1,3 +1,7 @@
+function ToTemplate(ID){
+  url = "template/template.php?id=" + ID
+  window.open(url, '_blank');
+}
 $(document).ready(function () {
   var zindex = 10;
 
