@@ -55,22 +55,20 @@
         include '../../FunctionsPHP/DataBaseConn.php';
 
         try {
-            $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $query = $conn->prepare("SELECT * FROM offers");
-            $query->execute();
-            $results = $query->fetchAll();
+          $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+          // set the PDO error mode to exception
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $query = $conn->prepare("SELECT * FROM offers LEFT JOIN images on offers.ImageID = images.ImageID");
+          $query->execute();
+          $results = $query->fetchAll();
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
 
-        $query = "SELECT * FROM offers LEFT JOIN images on offers.ImageID = images.ImageID";
-        $result = mysqli_query($conn, $query);
 
         foreach ($results as $row) {
 
-            echo '<div><img src="'. $row['path'] .'" alt="'. $row['Name'] .'" height="100">';
+            echo '<div><img src="../../'. $row['path'] .'" alt="'. $row['Name'] .'" height="100">';
             echo "<p><h3>" . $row['Name'] . "</h3></p>";
             echo "<p>" . $row['path'] . "</p>";
             echo "<p>" . $row['Address'] . "</p></div>";
