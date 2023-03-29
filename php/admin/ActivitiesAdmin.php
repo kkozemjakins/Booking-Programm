@@ -52,29 +52,15 @@
 
 
     <!-- Display data from the users table -->
-    <table class="styled-table">
-        <tr>
-            <th>OffersID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Address</th>
-            <th>Details</th>
-            <th>Link</th>
-            <th>ImageID</th>
-            <th></th>
-        </tr>
         <?php
         // Connect to the database
-        $host = "127.0.0.1";
-        $dbname = "booking";
-        $username = "root";
-        $password = "";
+        include '../../FunctionsPHP/DataBaseConn.php';
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $query = $conn->prepare("SELECT * FROM offers");
+            $query = $conn->prepare("SELECT * FROM offers LEFT JOIN images on offers.ImageID = images.ImageID");
             $query->execute();
             $results = $query->fetchAll();
         } catch (PDOException $e) {
@@ -87,24 +73,37 @@
         */
 
         foreach ($results as $row) {
-            echo "<tr><td>" . $row['OffersID'] . "</td>";
-            echo "<td>" . $row['Name'] . "</td>";
-            echo "<td>" . $row['Price'] . "</td>";
-            echo "<td>" . $row['Address'] . "</td>";
-            echo "<td>" . $row['Details'] . "</td>";
-            echo "<td><a href = '" . $row['Link'] . "'>" . $row['Link'] . "</a></td>";
-            echo "<td>" . $row['ImageID'] . "</td>";
-            echo "<td><a href='../template/template.php?id=" . $row['OffersID'] . "'>Go to</a></td>";
-            echo "<td>";
+            echo '<div class="card">';
+            echo '<div class="card__image-holder">';
+            echo    '<img class="card__image" src="../../'. $row['path'] .'" alt="wave"/>';
+            echo '</div>';
+            echo '<div class="card-title">';
+            echo    '<span class="left"></span>';
+            echo    '<span class="right"></span>';
+            echo    '</a>';
+            echo    '<h2>';
+            echo        $row['Name'];
+            echo        '<small>'. $row['Address'] .'</small>';
+            echo    '</h2>';
+            echo '</div>';
+            echo '<div class="card-flap flap1">';
+            echo   '<div class="card-description">';
+            echo    $row['Details'];
+            echo   '</div>';
+            echo    '<div class="card-flap flap2">';
+            echo    '<div class="card-actions">';
+            echo        '<a href="template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
+            echo    '</div>';
+            echo    '</div>';
+            echo  '</div>';
             echo "<form action='..\..\FunctionsPHP\activities\delete_activities.php' method='post'>";
             echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
             echo "<input type='submit' value='Delete'>";
             echo "</form>";
-            echo "</td></tr>";
+            echo '</div>';
+
         }
         ?>
-
-    </table>
 
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
     

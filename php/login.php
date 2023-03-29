@@ -42,10 +42,7 @@
 					session_start();
 
 					// Connect to the database
-					$host = "127.0.0.1";
-					$dbname = "booking";
-					$username = "root";
-					$password = "";
+					include '../FunctionsPHP/DataBaseConn.php';
 
 					$conn = mysqli_connect($host, $username, $password, $dbname);
 

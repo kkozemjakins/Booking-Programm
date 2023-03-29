@@ -13,10 +13,7 @@
 <?php
 
 // Connect to the database
-$host = "127.0.0.1";
-$dbname = "booking";
-$username = "root";
-$password = "";
+include '../FunctionsPHP/DataBaseConn.php';
 ?>
 
 <div id="container2">

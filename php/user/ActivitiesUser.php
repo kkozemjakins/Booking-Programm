@@ -52,10 +52,7 @@
 
         <?php
         // Connect to the database
-        $host = "127.0.0.1";
-        $dbname = "booking";
-        $username = "root";
-        $password = "";
+        include '../../FunctionsPHP/DataBaseConn.php';
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
