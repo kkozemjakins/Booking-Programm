@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Get the id parameter from the URL
  $id = $_GET['id'];
@@ -16,6 +17,18 @@ $pageData = mysqli_fetch_assoc($result);
 $template = file_get_contents('page-template.html');
 
 // Replace variables in the template with values from the database
+if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
+          
+    $template = str_replace('{session}', 'Welcome, ' . $_SESSION['username'] . '!'.  $_SESSION['access'] . '
+    <li class="nav__item"><a class="nav__link"><form action="..\..\FunctionsPHP\logout.php" method="post">
+        <button type="submit" name="logout">Exit</button></form></a></li>', $template);
+        
+    $template = str_replace('{ReservationForm}', $pageData['Name'], $template);
+}else{
+    $template = str_replace('{session}', '<li class="nav__item"><a href="..\login.php" class="nav__link">Sign in</a></li>
+    <li class="nav__item"><a href="..\registration.php" class="nav__link nav__link--button">Sign up</a></li>', $template);
+}
+
 $template = str_replace('{page_title}', $pageData['Name'], $template);
 $template = str_replace('{page_Name}', $pageData['Name'], $template);
 $template = str_replace('{page_Img}', $pageData['path'], $template);
@@ -23,6 +36,7 @@ $template = str_replace('{page_Price}', $pageData['Price'], $template);
 $template = str_replace('{page_Address}', $pageData['Address'], $template);
 $template = str_replace('{page_Details}', $pageData['Details'], $template);
 $template = str_replace('{page_Link}', $pageData['Link'], $template);
+
 // Output the final HTML code for the page
 echo $template;
 ?>

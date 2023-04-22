@@ -6,7 +6,8 @@ if (!isset($_SESSION['authorized'])) {
   exit;
 
 }elseif ($_SESSION['access'] != 0) {
-  header('Location: ..\user\MainAdmin.php');
+  header('Location: ..\admin\MainAdmin.php');
   exit;
 }
+
 ?>

@@ -19,9 +19,8 @@
             <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
         </ul>
         <ul class="nav__list">
-            <li class="nav__item"><a href="..\login.php" class="nav__link">Sign in</a></li>
-            <li class="nav__item">
-            <a href="..\registration.php" class="nav__link nav__link--button">Sign up</a>
+            <li>
+                <a class="nav__link">{session}</a>
             </li>
         </ul>
         </nav>
@@ -48,6 +47,10 @@
 		<h3>Details:</h3>{page_Details}
 	</div>
 
+	<div class="container">
+		<h3>Reservation:</h3>
+        {ReservationForm}
+	</div>
 
     <div class="footer-dark">
         <footer>

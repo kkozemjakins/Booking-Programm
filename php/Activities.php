@@ -1,3 +1,6 @@
+<?php
+    require '..\FunctionsPHP\sesion_check_onguests.php'; 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,11 +75,7 @@
             echo '<div class="card-flap flap1">';
             echo   '<div class="card-description">';
             echo    $row['Details'];
-            echo   '</div>';
-            echo    '<div class="card-flap flap2">';
-            echo    '<div class="card-actions">';
-            echo        '<a href="template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
-            echo    '</div>';
+            echo        '<div class="card-actions"><a href="template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a></div>';
             echo    '</div>';
             echo  '</div>';
             echo '</div>';

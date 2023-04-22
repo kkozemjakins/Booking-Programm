@@ -9,5 +9,4 @@ if (!isset($_SESSION['authorized'])) {
   header('Location: ..\user\UserMain.php');
   exit;
 }
-
 ?>

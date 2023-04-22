@@ -12,24 +12,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="..\js\Activities.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <header>
     <div class="container row">
-        <a href="MainAdmin.php" class="logo">Resting</a>
+        <a href="UserMain.php" class="logo">Resting</a>
         <nav class="nav">
         <ul class="nav__list nav__list--primary">
-            <li class="nav__item"><a href="ActivitiesAdmin.php" class="nav__link">Activities</a></li>
+            <li class="nav__item"><a href="ActivitiesUser.php" class="nav__link">Activities</a></li>
             <li class="nav__item"><a href="user_data.php" class="nav__link">User data</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">Reserved</a></li>
         </ul>
         <ul class="nav__list">
             <li class="nav__item">
               <a class="nav__link">
 
                 <form action='..\..\FunctionsPHP\logout.php' method="post">
-                  <button type="submit" name="logout">Exit</button>
+                  <button class="button"type="submit" name="logout">Exit</button>
 
                 </form>
               </a>
@@ -72,6 +74,7 @@
             echo "<p><h3>" . $row['Name'] . "</h3></p>";
             echo "<p>" . $row['path'] . "</p>";
             echo "<p>" . $row['Address'] . "</p></div>";
+            echo '<a href="../template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
 
         }
         ?>

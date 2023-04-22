@@ -1,4 +1,4 @@
-<?php require '..\..\FunctionsPHP\session_check_admin.php'; ?>
+<?php require '..\..\FunctionsPHP\session_check_admin.php';  ?>
 <!DOCTYPE html>
 <html>
 <head>
