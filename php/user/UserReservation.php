@@ -59,9 +59,12 @@
         // Connect to the database
         include '../../FunctionsPHP/DataBaseConn.php';
 
+        $CustomerID = $_SESSION['CustomerID'];
+
         $query = $conn->prepare("SELECT * FROM reservation 
                         LEFT JOIN Offers ON reservation.OfferID = Offers.OffersID 
-                        LEFT JOIN reservationdetails ON reservation.ReservationID = reservationdetails.ReservationID");
+                        LEFT JOIN reservationdetails ON reservation.ReservationID = reservationdetails.ReservationID
+                        WHERE CustomerID = $CustomerID");
         $query->execute();
         $results = $query->fetchAll();
 
