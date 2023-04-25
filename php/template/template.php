@@ -25,7 +25,8 @@ if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
         <button type="submit" name="logout">Exit</button></form></a></li>', $template);
 
     $template = str_replace('{ReservationForm}', 
-    '<form action="..\..\FunctionsPHP\reservation.php" method="post">
+    '<h3>Reservation:</h3>
+    <form action="..\..\FunctionsPHP\reservation.php" method="post">
     <input type="number" name="PersonAmount"  placeholder="PersonAmount" required>
     <input type="datetime-local" name="StartDate"  placeholder="StartDate" required>
     <input type="datetime-local" name="EndDate"  placeholder="EndDate" required>
@@ -33,6 +34,9 @@ if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
     <input type="submit" name="reservation" value="Add reservation">
     </form>', $template);
 }else{
+    $template = str_replace('{ReservationForm}', 
+    '<h2>You need to SignUp</h2>', $template);
+
     $template = str_replace('{session}', '<li class="nav__item"><a href="..\login.php" class="nav__link">Sign in</a></li>
     <li class="nav__item"><a href="..\registration.php" class="nav__link nav__link--button">Sign up</a></li>', $template);
 }

@@ -12,7 +12,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <script src="..\js\Activities.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -23,7 +22,7 @@
         <nav class="nav">
         <ul class="nav__list nav__list--primary">
             <li class="nav__item"><a href="ActivitiesUser.php" class="nav__link">Activities</a></li>
-            <li class="nav__item"><a href="user_data.php" class="nav__link">User data</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">User data</a></li>
             <li class="nav__item"><a href="#" class="nav__link">Reserved</a></li>
         </ul>
         <ul class="nav__list">
@@ -69,13 +68,22 @@
 
 
         foreach ($results as $row) {
+          echo '<div class="card">';
+          echo '<div class="card__image-holder">';
+          echo    '<img class="card__image" src="../../'. $row['path'] .'" alt="wave"/>';
+          echo '</div>';
+          echo '<div class="card-title">';
+          echo    '<span class="left"></span>';
+          echo    '<span class="right"></span>';
+          echo    '</a>';
+          echo    '<h2>';
+          echo        $row['Name'];
+          echo        '<small>'. $row['Address'] .'</small>';
+          echo    '</h2>';
+          echo        '<a href="../template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
+          echo '</div>';
 
-            echo '<div><img src="../../'. $row['path'] .'" alt="'. $row['Name'] .'" height="100">';
-            echo "<p><h3>" . $row['Name'] . "</h3></p>";
-            echo "<p>" . $row['path'] . "</p>";
-            echo "<p>" . $row['Address'] . "</p></div>";
-            echo '<a href="../template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
-
+          echo  '</div>';
         }
         ?>
 
