@@ -23,18 +23,21 @@ USE `booking`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `CommentID` int NOT NULL AUTO_INCREMENT,
   `CustomerID` int DEFAULT NULL,
+  `OffersID` int DEFAULT NULL,
   `Date` datetime DEFAULT NULL,
   `CommentText` text CHARACTER SET utf8mb3 COLLATE utf8mb3_latvian_ci,
   `Rating` int DEFAULT NULL,
-  `OffersID` int DEFAULT NULL,
+  `CommentCode` char(13) DEFAULT NULL,
   PRIMARY KEY (`CommentID`),
   KEY `FK_comments_customer` (`CustomerID`),
   KEY `FK_comments_offers` (`OffersID`),
   CONSTRAINT `FK_comments_customer` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`),
   CONSTRAINT `FK_comments_offers` FOREIGN KEY (`OffersID`) REFERENCES `offers` (`OffersID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table booking.comments: ~0 rows (approximately)
+-- Dumping data for table booking.comments: ~1 rows (approximately)
+INSERT INTO `comments` (`CommentID`, `CustomerID`, `OffersID`, `Date`, `CommentText`, `Rating`, `CommentCode`) VALUES
+	(1, 3, 1, '2028-04-23 07:04:18', 'Great place to spend weekend ', 5, '644b6ff2e97a4');
 
 -- Dumping structure for table booking.customer
 CREATE TABLE IF NOT EXISTS `customer` (
@@ -47,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   PRIMARY KEY (`CustomerID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table booking.customer: ~9 rows (approximately)
+-- Dumping data for table booking.customer: ~5 rows (approximately)
 INSERT INTO `customer` (`CustomerID`, `FirstName`, `LastName`, `Password`, `Email`, `Access`) VALUES
 	(1, 'Kirils', 'Kozemjakins', 'qwerty12345', 'qwerty@gmail.com', 1),
 	(2, 'Aleksandrs', 'Loceks', '123456789', 'rvt@gmail.com', 1),
@@ -130,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   CONSTRAINT `FK_reservation_offers` FOREIGN KEY (`OfferID`) REFERENCES `offers` (`OffersID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table booking.reservation: ~1 rows (approximately)
+-- Dumping data for table booking.reservation: ~0 rows (approximately)
 INSERT INTO `reservation` (`ReservationID`, `OfferID`, `CustomerID`, `DateOfCreation`, `ReservationCode`) VALUES
 	(1, 1, 3, '2028-04-23 06:18:30', '644b6536e401d');
 
@@ -147,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   CONSTRAINT `FK_reservationdetails_reservation` FOREIGN KEY (`ReservationID`) REFERENCES `reservation` (`ReservationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table booking.reservationdetails: ~1 rows (approximately)
+-- Dumping data for table booking.reservationdetails: ~0 rows (approximately)
 INSERT INTO `reservationdetails` (`ReservationDetailsID`, `ReservationID`, `PersonAmount`, `StartDate`, `EndDate`, `SumPrice`) VALUES
 	(1, 1, 2, '2023-04-28 10:50:00', '2023-04-28 13:50:00', 50);
 
