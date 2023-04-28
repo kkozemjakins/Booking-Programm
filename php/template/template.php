@@ -34,7 +34,7 @@ if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
     <input type="submit" name="reservation" value="Add reservation">
     </form>', $template);
 
-    $template = str_replace('{Comments}', 
+    $template = str_replace('{CommentForm}', 
     '<h3>Write Your Comment:</h3>
     <form action="..\..\FunctionsPHP\CommentAdd.php" method="post">
     <label for="rating">Rating (between 1 and 5):</label>
@@ -47,12 +47,24 @@ if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
     $template = str_replace('{ReservationForm}', 
     '<h2>You need to SignUp</h2>', $template);
 
-    $template = str_replace('{Comments}', 
-    '<h2>Comments:</h2>', $template);
-
     $template = str_replace('{session}', '<li class="nav__item"><a href="..\login.php" class="nav__link">Sign in</a></li>
     <li class="nav__item"><a href="..\registration.php" class="nav__link nav__link--button">Sign up</a></li>', $template);
 }
+
+$query2 = "SELECT CommentText,Rating, Date, FirstName, LastName FROM comments LEFT JOIN customer on comments.CustomerID = customer.CustomerID WHERE OffersID = $id";
+$result2 = mysqli_query($conn, $query2);
+$pageData2 = mysqli_fetch_assoc($result2);
+
+foreach ($result2 as $row) {
+    $commentsHtmlCode = '<h2>Comments:</h2>';
+    $commentsHtmlCode = $commentsHtmlCode . "<p><div style='border: 2px solid black'><h4>UserName:</h4>" . $row['FirstName'] . " " . $row['LastName'] . "
+    <h4>Date:</h4>" . $row['Date'] . "
+    <h4>Rating:</h4>" . $row['Rating'] . "
+    <h4>Text:</h4>" . $row['CommentText'] . "
+    </div></p>";
+}
+
+$template = str_replace('{Comments}', $commentsHtmlCode, $template);
 
 $template = str_replace('{page_title}', $pageData['Name'], $template);
 $template = str_replace('{page_Name}', $pageData['Name'], $template);
