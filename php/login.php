@@ -56,7 +56,7 @@
 						if (mysqli_num_rows($result) > 0) {
 							$row = mysqli_fetch_assoc($result);
 							$_SESSION['authorized'] = true;
-							$_SESSION['username'] = $row['FirstName'] . ' ' . $row['LastName']; // Устанавливаем $_SESSION['username'] равным имени и фамилии пользователя
+							$_SESSION['username'] = $row['FirstName'] . ' ' . $row['LastName'];
 							$_SESSION['access'] = $row['Access'];
 							$_SESSION['CustomerID'] = $row['CustomerID'];
 
