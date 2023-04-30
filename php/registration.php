@@ -59,13 +59,15 @@ include '../FunctionsPHP/DataBaseConn.php';
 
                     
                     if (isset($_POST['reg'])) {
+                        //check for data from form
                         $FirstName = $_POST['FirstName'];
                         $LastName = $_POST['LastName'];
                         $Password = $_POST['Password'];
                         $RepeatPassword = $_POST['RepeatPassword'];
                         $Email = $_POST['Email'];
+    
+                        if ($Password ===  $RepeatPassword && filter_var($Email, FILTER_VALIDATE_EMAIL) && strlen($password) >= 8){
 
-                        if ($Password ===  $RepeatPassword){
                             // Prepare and bind the SQL statement
                             $sql = "SELECT * FROM customer WHERE Email = :Email";
                             $stmt = $conn->prepare($sql);
@@ -105,7 +107,7 @@ include '../FunctionsPHP/DataBaseConn.php';
                             }
                         }
                         else{
-                            echo '<p class="incorrect" >Passwords don`t match</p>';
+                            echo '<p class="incorrect" >Something gone wrong</p>';
                         }
                     }
                 } catch (PDOException $e) {

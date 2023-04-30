@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="..\..\js\user_data.js"></script>
 </head>
 <body>
 
@@ -100,6 +101,16 @@
             echo "<form action='..\..\FunctionsPHP\activities\delete_activities.php' method='post'>";
             echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
             echo "<input type='submit' value='Delete'>";
+            echo "</form>";
+            echo "<button class='ShowUpdateForm'>Update</button>";
+            echo "<form class='UpdateValuesForm' action='..\..\FunctionsPHP\update_user.php' method='post'>";
+            echo "<input type='hidden' name='CustomerID' value='".$row['OffersID']."'>";
+            echo "Name: <input type='text' name='Name'  value='".$row['Name']."'><br><br>";
+            echo "Name: <input type='text' name='Name'  value='".$row['Address']."'><br><br>";
+            echo "Name: <input type='text' name='Name'  value='".$row['Price']."'><br><br>";
+            echo "Name: <input type='text' name='Name'  value='".$row['Details']."'><br><br>";
+            echo "Name: <input type='text' name='Name'  value='".$row['ImageID']."'><br><br>";
+            echo "<input type='submit' value='Submit Update'>";
             echo "</form>";
             echo '</div>';
 
