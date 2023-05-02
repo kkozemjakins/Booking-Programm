@@ -95,7 +95,7 @@
             echo "<input type='submit' value='Delete'>";
             echo "</form>";
             echo "<button class='ShowUpdateForm'>Update</button>";
-            echo "<form class='UpdateValuesForm' action='..\..\FunctionsPHP\activities\update_activities.php' method='post'>";
+            echo "<form class='UpdateValuesForm' action='..\..\FunctionsPHP\activities\update_activities.php' method='post' enctype='multipart/form-data'>";
             echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
             echo "Name: <input type='text' name='Name'  value='".$row['Name']."'><br><br>";
             echo "Address: <input type='text' name='Address'  value='".$row['Address']."'><br><br>";

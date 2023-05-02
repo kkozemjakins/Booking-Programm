@@ -22,7 +22,7 @@ try {
                 $newLocation = 'images/' . $fileName;
                 move_uploaded_file($fileTmp, '../../'. $newLocation);
                 $queryNewImg = "INSERT INTO images (name, type, size, path) VALUES (:name, :type, :size, :path)";
-                $stmt = $pdo->prepare($queryNewImg);
+                $stmt = $conn->prepare($queryNewImg);
                 $stmt->execute([
                     'name' => $fileName,
                     'type' => $fileType,
@@ -31,7 +31,7 @@ try {
                 ]);
 
                 // Get the ID of the last inserted image
-                $imageId = $pdo->lastInsertId();
+                $imageId = $conn->lastInsertId();
             } else {
                 echo "Only JPG, PNG, and GIF images are allowed.";
             }
