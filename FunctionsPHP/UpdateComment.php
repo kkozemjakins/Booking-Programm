@@ -10,12 +10,15 @@ try {
     $CommentID = $_POST["CommentID"];
 
     // Get the updated user data from the form
-    $Date = $Date = date('d-m-y h:i:s');
+
+    date_default_timezone_set('Etc/GMT-3');
+
+    $Date = date('Y-m-d H:i:s');
     $CommentText = $_POST["CommentText"];
     $Rating = $_POST["Rating"];
 
     // Update the user data in the database
-    $query = $conn->prepare("UPDATE comments SET Date=:Date, CommentText=:CommentText, Rating=:Rating WHERE CommentID=$CommentID");
+    $query = $conn->prepare("UPDATE comments SET CommentText=:CommentText, Date=:Date, Rating=:Rating WHERE CommentID=$CommentID");
     $query->bindParam(":Date", $Date);
     $query->bindParam(":CommentText", $CommentText);
     $query->bindParam(":Rating", $Rating);

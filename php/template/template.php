@@ -55,7 +55,7 @@ $query2 = "SELECT * FROM comments LEFT JOIN customer on comments.CustomerID = cu
 $result2 = mysqli_query($conn, $query2);
 
 
-
+$commentsHtmlCode = '<h2>Comments:</h2>';
 
 if (mysqli_num_rows($result2) == 0) {
     echo "No results found.";
@@ -64,17 +64,16 @@ if (mysqli_num_rows($result2) == 0) {
     // process the result set
 
     foreach ($result2 as $row) {
-        $deleteButton = '<form class="UpdateValuesForm" action="..\..\FunctionsPHP\DeleteComment.php" method="post">
+        $deleteButton = '<form action="..\..\FunctionsPHP\DeleteComment.php" method="post">
         <input type="hidden" name="CommentID" value="'.$row['CommentID'].'">
         <input type="submit" value="Delete"></form>';
 
-        $updateButton = '<form action="..\..\FunctionsPHP\UpdateComment.php" method="post">
+        $updateButton = '<button class="ShowUpdateForm">Update</button>
+        <form class="UpdateValuesForm" action="..\..\FunctionsPHP\UpdateComment.php" method="post">
         <input type="hidden" name="CommentID" value="'.$row['CommentID'].'">
         <input type="range" min="1" max="5" name="Rating" value="'.$row['Rating'].'">
         <input type="text" name="CommentText" value="'.$row['CommentText'].'">
         <input type="submit" value="Update"></form>';
-
-        $commentsHtmlCode = '<h2>Comments:</h2>';
         $commentsHtmlCode = $commentsHtmlCode . "<p><div style='border: 2px solid black'><h4>UserName:</h4>" . $row['FirstName'] . " " . $row['LastName'] . "
         <h4>Date:</h4>" . $row['Date'] . "
         <h4>Rating:</h4>" . $row['Rating'] . "/5

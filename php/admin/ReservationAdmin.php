@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="..\..\js\user_data.js" defer></script>
 </head>
 <body>
 
@@ -84,7 +85,8 @@
             echo "<input type='hidden' name='ReservationID' value='".$row['ReservationID']."'>";
             echo "<input type='submit' value='Delete'>";
             echo "</form>";
-            echo "<form action='..\..\FunctionsPHP\UpdateReservation.php' method='post'>";
+            echo "<button class='ShowUpdateForm'>Update</button>";
+            echo "<form class='UpdateValuesForm' action='..\..\FunctionsPHP\UpdateReservation.php' method='post'>";
             echo "<input type='hidden' name='ReservationID' value='".$row['ReservationID']."'>";
             echo "<input type='number' name='PersonAmount' value='".$row['PersonAmount']."'>";
             echo "<input type='datetime-local' name='StartDate' value='".$row['StartDate']."'>";

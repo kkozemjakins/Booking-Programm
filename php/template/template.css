@@ -167,3 +167,11 @@
     font-size:13px;
     margin-bottom:0;
   }
+
+  .ShowUpdateButton{
+    display: block;
+  }
+  
+  .UpdateValuesForm{
+    display: none;
+  }
