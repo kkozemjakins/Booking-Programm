@@ -37,7 +37,7 @@
               </a>
             </li>
             <li>
-              <a class="nav__link">
+              <a class="nav__link" href="../Profile.php">
                 <?php
                 
                   if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
