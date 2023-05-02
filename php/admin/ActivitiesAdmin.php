@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="..\..\js\user_data.js"></script>
+    <script src="..\..\js\user_data.js" defer></script>
 </head>
 <body>
 
@@ -24,7 +24,7 @@
         <ul class="nav__list nav__list--primary">
             <li class="nav__item"><a href="ActivitiesAdmin.php" class="nav__link">Activities</a></li>
             <li class="nav__item"><a href="user_data.php" class="nav__link">User data</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+            <li class="nav__item"><a href="ReservationAdmin.php" class="nav__link">Users Reservations</a></li>
         </ul>
         <ul class="nav__list">
             <li class="nav__item">
@@ -82,35 +82,28 @@
             echo '<div class="card-title">';
             echo    '<span class="left"></span>';
             echo    '<span class="right"></span>';
-            echo    '</a>';
+            echo    '<a href="../template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">';
             echo    '<h2>';
             echo        $row['Name'];
             echo        '<small>'. $row['Address'] .'</small>';
-            echo    '</h2>';
+            echo    '</h2></a>';
             echo '</div>';
             echo '<div class="card-flap flap1">';
-            echo   '<div class="card-description">';
-            echo    $row['Details'];
-            echo   '</div>';
-            echo    '<div class="card-flap flap2">';
-            echo    '<div class="card-actions">';
-            echo        '<a href="../template/template.php?id='. $row['OffersID'] .'"class="btn" onclick="ToTemplate('. $row['OffersID'] .')">Read more</a>';
-            echo    '</div>';
-            echo    '</div>';
-            echo  '</div>';
+            echo '</div>';
             echo "<form action='..\..\FunctionsPHP\activities\delete_activities.php' method='post'>";
             echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
             echo "<input type='submit' value='Delete'>";
             echo "</form>";
             echo "<button class='ShowUpdateForm'>Update</button>";
-            echo "<form class='UpdateValuesForm' action='..\..\FunctionsPHP\update_user.php' method='post'>";
-            echo "<input type='hidden' name='CustomerID' value='".$row['OffersID']."'>";
+            echo "<form class='UpdateValuesForm' action='..\..\FunctionsPHP\activities\update_activities.php' method='post'>";
+            echo "<input type='hidden' name='OffersID' value='".$row['OffersID']."'>";
             echo "Name: <input type='text' name='Name'  value='".$row['Name']."'><br><br>";
-            echo "Name: <input type='text' name='Name'  value='".$row['Address']."'><br><br>";
-            echo "Name: <input type='text' name='Name'  value='".$row['Price']."'><br><br>";
-            echo "Name: <input type='text' name='Name'  value='".$row['Details']."'><br><br>";
-            echo "Name: <input type='text' name='Name'  value='".$row['ImageID']."'><br><br>";
-            echo "<input type='submit' value='Submit Update'>";
+            echo "Address: <input type='text' name='Address'  value='".$row['Address']."'><br><br>";
+            echo "Price: <textarea name='Price' rows='5' cols='20' placeholder='Price' required>".$row['Price']."</textarea><br><br>";
+            echo "Details: <textarea name='Details' rows='5' cols='20' placeholder='Details' required>".$row['Details']."</textarea><br><br>";
+            echo "Link: <input type='text' name='Link'  value='".$row['Link']."'><br><br>";
+            echo "Image: <input type='file' name='Image'><br><br>";
+            echo "<input type='submit' name='UpdateActivity' value='Submit Update'>";
             echo "</form>";
             echo '</div>';
 
@@ -151,7 +144,7 @@
 
               if (in_array($fileType, $allowedTypes)) {
                   $newLocation = 'images/' . $fileName;
-                  move_uploaded_file($fileTmp, $newLocation);
+                  move_uploaded_file($fileTmp, '../../'. $newLocation);
                   $query = "INSERT INTO images (name, type, size, path) VALUES (:name, :type, :size, :path)";
                   $stmt = $pdo->prepare($query);
                   $stmt->execute([

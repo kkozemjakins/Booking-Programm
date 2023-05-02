@@ -4,7 +4,7 @@ session_start();
 // Get the id parameter from the URL
 $id = $_GET['id'];
 $_SESSION['OfferID'] = $id;
-
+//$_SESSION['CustomerID'];
 // Connect to the database
 include '../../FunctionsPHP/DataBaseConn.php';
 $conn = mysqli_connect($host, $username, $password, $dbname);
@@ -51,20 +51,56 @@ if (isset($_SESSION['authorized']) && $_SESSION['authorized'] === true) {
     <li class="nav__item"><a href="..\registration.php" class="nav__link nav__link--button">Sign up</a></li>', $template);
 }
 
-$query2 = "SELECT CommentText,Rating, Date, FirstName, LastName FROM comments LEFT JOIN customer on comments.CustomerID = customer.CustomerID WHERE OffersID = $id";
+$query2 = "SELECT * FROM comments LEFT JOIN customer on comments.CustomerID = customer.CustomerID WHERE OffersID = $id";
 $result2 = mysqli_query($conn, $query2);
-$pageData2 = mysqli_fetch_assoc($result2);
 
-foreach ($result2 as $row) {
-    $commentsHtmlCode = '<h2>Comments:</h2>';
-    $commentsHtmlCode = $commentsHtmlCode . "<p><div style='border: 2px solid black'><h4>UserName:</h4>" . $row['FirstName'] . " " . $row['LastName'] . "
-    <h4>Date:</h4>" . $row['Date'] . "
-    <h4>Rating:</h4>" . $row['Rating'] . "
-    <h4>Text:</h4>" . $row['CommentText'] . "
-    </div></p>";
+
+
+
+if (mysqli_num_rows($result2) == 0) {
+    echo "No results found.";
+} else {
+    $pageData2 = mysqli_fetch_assoc($result2);
+    // process the result set
+
+    foreach ($result2 as $row) {
+        $deleteButton = '<form class="UpdateValuesForm" action="..\..\FunctionsPHP\DeleteComment.php" method="post">
+        <input type="hidden" name="CommentID" value="'.$row['CommentID'].'">
+        <input type="submit" value="Delete"></form>';
+
+        $updateButton = '<form action="..\..\FunctionsPHP\UpdateComment.php" method="post">
+        <input type="hidden" name="CommentID" value="'.$row['CommentID'].'">
+        <input type="range" min="1" max="5" name="Rating" value="'.$row['Rating'].'">
+        <input type="text" name="CommentText" value="'.$row['CommentText'].'">
+        <input type="submit" value="Update"></form>';
+
+        $commentsHtmlCode = '<h2>Comments:</h2>';
+        $commentsHtmlCode = $commentsHtmlCode . "<p><div style='border: 2px solid black'><h4>UserName:</h4>" . $row['FirstName'] . " " . $row['LastName'] . "
+        <h4>Date:</h4>" . $row['Date'] . "
+        <h4>Rating:</h4>" . $row['Rating'] . "/5
+        <h4>Text:</h4>" . $row['CommentText'];
+
+        if($row['CustomerID'] == $_SESSION['CustomerID'] || $_SESSION['access'] == 1){
+            $commentsHtmlCode =  $commentsHtmlCode. ' ' .$deleteButton . ' '. $updateButton ."</div></p>";;
+        }
+
+    }
+    
+    $template = str_replace('{Comments}', $commentsHtmlCode, $template);
 }
 
-$template = str_replace('{Comments}', $commentsHtmlCode, $template);
+if ($_SESSION['access'] == 0){
+    $template = str_replace('{ActivitiesLink}', '..\user\ActivitiesUser.php', $template);
+    $template = str_replace('{ReservationLink}', '..\user\UserReservation.php', $template);
+
+}elseif($_SESSION['access'] == 1){
+    $template = str_replace('{ActivitiesLink}', '..\admin\ActivitiesAdmin.php', $template);
+    $template = str_replace('{ReservationLink}', '..\admin\ReservationAdmin.php', $template);
+}else{
+    $template = str_replace('{ActivitiesLink}', '..\Activities.php', $template);
+    $template = str_replace('{ReservationLink}', '..\login.php', $template);
+}
+
 
 $template = str_replace('{page_title}', $pageData['Name'], $template);
 $template = str_replace('{page_Name}', $pageData['Name'], $template);

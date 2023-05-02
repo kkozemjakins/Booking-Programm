@@ -17,15 +17,14 @@ try {
 
     // Delete the image from the disk
     if (isset($row['path'])) {
-        unlink($row['path']);
-        header('Location: ..\main.php');
+        unlink('../../' . $row['path']);
     }
 
     // Delete the image information from the database
     $query = $conn->prepare("DELETE offers, images FROM offers LEFT JOIN images ON offers.ImageID = images.ImageID WHERE OffersID = :OffersID");
     $query->bindParam(':OffersID', $_POST['OffersID']);
     $query->execute();
-    header('Location: ..\..\php\admin\ActivitiesAdmin.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }
