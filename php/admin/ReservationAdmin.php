@@ -47,8 +47,9 @@
     <!-- Display data from the users table -->
     <table class="styled-table">
         <tr>
-            <th>ReservationCode</th>
+            <th>User</th>
             <th>DateOfCreation</th>
+            <th>ReservationCode</th>
             <th>OfferName</th>
             <th>PersonAmount</th>
             <th>StartDate</th>
@@ -69,9 +70,10 @@
         $results = $query->fetchAll();
 
         foreach ($results as $row) {
-            echo "<tr><td>" . $row['DateOfCreation'] . "</td>";
-            echo "<td>" . $row['ReservationCode'] . "</td>";
+            echo "<tr>";
+            echo "<td>". $row['FirstName'] ." " . $row['LastName'] . "(ID:" . $row['CustomerID'] . ")</td>";
             echo "<td>" . $row['DateOfCreation'] . "</td>";
+            echo "<td>" . $row['ReservationCode'] . "</td>";
             echo "<td>" . $row['Name'] . "</td>";
             echo "<td>" . $row['PersonAmount'] . "</td>";
             echo "<td>" . $row['StartDate'] . "</td>";
@@ -81,6 +83,13 @@
             echo "<form action='..\..\FunctionsPHP\DeleteReservation.php' method='post'>";
             echo "<input type='hidden' name='ReservationID' value='".$row['ReservationID']."'>";
             echo "<input type='submit' value='Delete'>";
+            echo "</form>";
+            echo "<form action='..\..\FunctionsPHP\UpdateReservation.php' method='post'>";
+            echo "<input type='hidden' name='ReservationID' value='".$row['ReservationID']."'>";
+            echo "<input type='number' name='PersonAmount' value='".$row['PersonAmount']."'>";
+            echo "<input type='datetime-local' name='StartDate' value='".$row['StartDate']."'>";
+            echo "<input type='datetime-local' name='EndDate' value='".$row['EndDate']."'>";
+            echo "<input type='submit' value='Update'>";
             echo "</form>";
             echo "</td></tr>";
         }
