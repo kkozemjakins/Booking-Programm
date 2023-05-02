@@ -1,6 +1,6 @@
 <?php
 // Connect to the database
-include '../DataBaseConn.php';
+include 'DataBaseConn.php';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
