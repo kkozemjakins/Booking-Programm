@@ -66,7 +66,7 @@ include '../FunctionsPHP/DataBaseConn.php';
                         $RepeatPassword = $_POST['RepeatPassword'];
                         $Email = $_POST['Email'];
     
-                        if ($Password ===  $RepeatPassword && filter_var($Email, FILTER_VALIDATE_EMAIL) && strlen($password) >= 8){
+                        if ($Password ===  $RepeatPassword && filter_var($Email, FILTER_VALIDATE_EMAIL) && strlen($Password) >= 8){
 
                             // Prepare and bind the SQL statement
                             $sql = "SELECT * FROM customer WHERE Email = :Email";
