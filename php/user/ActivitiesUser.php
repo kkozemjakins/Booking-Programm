@@ -1,5 +1,7 @@
 <?php
-    require '..\..\FunctionsPHP\session_check.php'; 
+    require '../../FunctionsPHP/session_check.php'; 
+    // Connect to the database
+    include '../../FunctionsPHP/DataBaseConn.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +24,7 @@
         <nav class="nav">
         <ul class="nav__list nav__list--primary">
             <li class="nav__item"><a href="ActivitiesUser.php" class="nav__link">Activities</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">User data</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Reserved</a></li>
+            <li class="nav__item"><a href="UserReservation.php" class="nav__link">Reservations</a></li>
         </ul>
         <ul class="nav__list">
             <li class="nav__item">
@@ -52,8 +53,8 @@
     </header>
 
         <?php
-        // Connect to the database
-        include '../../FunctionsPHP/DataBaseConn.php';
+        
+
 
         try {
           $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

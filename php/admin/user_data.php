@@ -18,7 +18,7 @@
         <ul class="nav__list nav__list--primary">
             <li class="nav__item"><a href="ActivitiesAdmin.php" class="nav__link">Activities</a></li>
             <li class="nav__item"><a href="user_data.php" class="nav__link">User data</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+            <li class="nav__item"><a href="ReservationAdmin.php" class="nav__link">Users Reservations</a></li>
         </ul>
         <ul class="nav__list">
             <li class="nav__item">
